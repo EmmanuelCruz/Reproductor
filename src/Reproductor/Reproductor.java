@@ -5,17 +5,58 @@
  */
 package Reproductor;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author emanuel
  */
 public class Reproductor extends javax.swing.JFrame {
+    
+    /** Lista de canciones */
+    public ArrayList<Cancion> canciones;
+    
+    /** Lista de PlayList*/
+    public ArrayList<Playlist> playLists;
+    
 
     /**
      * Creates new form Reproductor
      */
     public Reproductor() {
         initComponents();
+    }
+    
+    /**
+     * Agrega una cancion al Reproductor.
+     * @param cancion
+     */
+    public void agregaCancion(Cancion cancion){
+        canciones.add(cancion);
+    }
+    
+    /**
+     * Elimina una cancion del Reproductor.
+     * @param cancion
+     */
+    public void eliminar(Cancion cancion){
+        canciones.remove(cancion);
+    }
+    
+    /**
+     * Crea una PlayList al Reproductor.
+     * @param playlist
+     */
+    public void crearPlayList(Playlist playlist){
+        playLists.add(playlist);
+    }
+    
+    /**
+     * Elimina una PlayList del Reproductor.
+     * @param playlist
+     */
+    public void eliminarPlayList(Playlist playlist){
+        playLists.remove(playlist);
     }
 
     /**
