@@ -27,8 +27,7 @@ public class Playlist {
     /**
      * Construye una nueva playlist. 
      * @param nombre el nombre de la playlist.
-     */
-    
+     */   
     public Playlist(String nombre ){
         this.nombre = nombre;
         lista = new ArrayList<>();  
@@ -36,15 +35,16 @@ public class Playlist {
     
     /**
      * Agrega una cancion a la playlist.
+     * @param cancion
      */
     public void agrega(Cancion cancion){
         lista.add(cancion);
-        numeroCanciones++;
-        
+        numeroCanciones++;   
     }
     
     /**
      * Elimina una cancion a la playlist.
+     * @param cancion
      */
     public void elimina(Cancion cancion){
         lista.remove(cancion);
