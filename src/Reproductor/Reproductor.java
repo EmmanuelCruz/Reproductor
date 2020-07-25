@@ -28,7 +28,10 @@ public class Reproductor extends javax.swing.JFrame {
      */
     public Reproductor() {
         initComponents();
-        //jLabel1.setVisible(false);
+        ImageIcon botonPlay = new ImageIcon("src/Reproductor/PLAY.png");
+        Icon iconoPlay = new ImageIcon(botonPlay.getImage().getScaledInstance(playBoton.getWidth(), playBoton.getHeight(), Image.SCALE_DEFAULT));
+        playBoton.setIcon(iconoPlay);
+        
     }
     
     /**
@@ -80,6 +83,8 @@ public class Reproductor extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         portada = new javax.swing.JLabel();
+        cancionActual = new javax.swing.JLabel();
+        playBoton = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -95,15 +100,15 @@ public class Reproductor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(10, 30, 130, 36);
+        jButton2.setBounds(10, 30, 140, 37);
 
         jButton3.setText("Playlists");
         getContentPane().add(jButton3);
-        jButton3.setBounds(10, 80, 130, 36);
+        jButton3.setBounds(10, 80, 140, 37);
 
         jButton4.setText("Elimina Canción");
         getContentPane().add(jButton4);
-        jButton4.setBounds(10, 180, 130, 36);
+        jButton4.setBounds(10, 180, 140, 37);
 
         jButton5.setText("Agrega Canción");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -112,17 +117,23 @@ public class Reproductor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton5);
-        jButton5.setBounds(10, 130, 130, 36);
+        jButton5.setBounds(10, 130, 140, 37);
 
         jButton6.setText("Agrega Playlist");
         getContentPane().add(jButton6);
-        jButton6.setBounds(10, 230, 130, 36);
+        jButton6.setBounds(10, 230, 140, 37);
 
         jButton7.setText("Busca Canción");
         getContentPane().add(jButton7);
-        jButton7.setBounds(10, 280, 130, 36);
+        jButton7.setBounds(10, 280, 140, 37);
         getContentPane().add(portada);
-        portada.setBounds(170, 30, 680, 280);
+        portada.setBounds(270, 30, 680, 280);
+
+        cancionActual.setText("jLabel1");
+        getContentPane().add(cancionActual);
+        cancionActual.setBounds(270, 337, 540, 30);
+        getContentPane().add(playBoton);
+        playBoton.setBounds(510, 357, 80, 70);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -169,6 +180,7 @@ public class Reproductor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel cancionActual;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -176,6 +188,7 @@ public class Reproductor extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton playBoton;
     private javax.swing.JLabel portada;
     // End of variables declaration//GEN-END:variables
 }
