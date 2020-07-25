@@ -28,9 +28,20 @@ public class Reproductor extends javax.swing.JFrame {
      */
     public Reproductor() {
         initComponents();
+        //Boton Play
         ImageIcon botonPlay = new ImageIcon("src/Reproductor/PLAY.png");
         Icon iconoPlay = new ImageIcon(botonPlay.getImage().getScaledInstance(playBoton.getWidth(), playBoton.getHeight(), Image.SCALE_DEFAULT));
         playBoton.setIcon(iconoPlay);
+        
+        //Boton Derecho
+        ImageIcon botonDer = new ImageIcon("src/Reproductor/DER.png");
+        Icon iconoDer = new ImageIcon(botonDer.getImage().getScaledInstance(derBoton.getWidth(), derBoton.getHeight(), Image.SCALE_DEFAULT));
+        derBoton.setIcon(iconoDer);
+        
+        //Boton Izquierdo
+        ImageIcon botonIzq = new ImageIcon("src/Reproductor/IZQ.png");
+        Icon iconoIzq = new ImageIcon(botonIzq.getImage().getScaledInstance(izqBoton.getWidth(), izqBoton.getHeight(), Image.SCALE_DEFAULT));
+        izqBoton.setIcon(iconoIzq);
         
     }
     
@@ -85,6 +96,8 @@ public class Reproductor extends javax.swing.JFrame {
         portada = new javax.swing.JLabel();
         cancionActual = new javax.swing.JLabel();
         playBoton = new javax.swing.JButton();
+        derBoton = new javax.swing.JButton();
+        izqBoton = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -134,6 +147,16 @@ public class Reproductor extends javax.swing.JFrame {
         cancionActual.setBounds(270, 337, 540, 30);
         getContentPane().add(playBoton);
         playBoton.setBounds(510, 357, 80, 70);
+        getContentPane().add(derBoton);
+        derBoton.setBounds(620, 357, 80, 70);
+
+        izqBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                izqBotonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(izqBoton);
+        izqBoton.setBounds(400, 360, 80, 70);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -145,6 +168,10 @@ public class Reproductor extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void izqBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_izqBotonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_izqBotonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,6 +208,8 @@ public class Reproductor extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cancionActual;
+    private javax.swing.JButton derBoton;
+    private javax.swing.JButton izqBoton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
