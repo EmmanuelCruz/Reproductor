@@ -7,6 +7,7 @@ package Reproductor;
 
 import java.awt.Image;
 import java.util.ArrayList;
+import javafx.scene.paint.Color;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -28,6 +29,14 @@ public class Reproductor extends javax.swing.JFrame {
      */
     public Reproductor() {
         initComponents();
+        
+        cancionActual.setForeground(java.awt.Color.cyan);
+        
+        //fondo
+        ImageIcon fondo = new ImageIcon("src/Reproductor/Fondo.jpg");
+        Icon iconoFondo = new ImageIcon(fondo.getImage().getScaledInstance(wallpaper.getWidth(), wallpaper.getHeight(), Image.SCALE_DEFAULT));
+        wallpaper.setIcon(iconoFondo);
+        
         //Boton Play
         ImageIcon botonPlay = new ImageIcon("src/Reproductor/PLAY.png");
         Icon iconoPlay = new ImageIcon(botonPlay.getImage().getScaledInstance(playBoton.getWidth(), playBoton.getHeight(), Image.SCALE_DEFAULT));
@@ -42,6 +51,19 @@ public class Reproductor extends javax.swing.JFrame {
         ImageIcon botonIzq = new ImageIcon("src/Reproductor/IZQ.png");
         Icon iconoIzq = new ImageIcon(botonIzq.getImage().getScaledInstance(izqBoton.getWidth(), izqBoton.getHeight(), Image.SCALE_DEFAULT));
         izqBoton.setIcon(iconoIzq);
+
+        //Boton repetir
+        ImageIcon botonRepetir = new ImageIcon("src/Reproductor/REPETIR.png");
+        Icon iconoRep = new ImageIcon(botonRepetir.getImage().getScaledInstance(repetir.getWidth(), repetir.getHeight(), Image.SCALE_DEFAULT));
+        repetir.setIcon(iconoRep);
+        
+        //Boton aleatorio
+        ImageIcon botonAleatorio = new ImageIcon("src/Reproductor/ALEATORIO.png");
+        Icon iconoAle = new ImageIcon(botonAleatorio.getImage().getScaledInstance(aleatorio.getWidth(), aleatorio.getHeight(), Image.SCALE_DEFAULT));
+        aleatorio.setIcon(iconoAle);
+        
+        
+        
         
     }
     
@@ -98,12 +120,17 @@ public class Reproductor extends javax.swing.JFrame {
         playBoton = new javax.swing.JButton();
         derBoton = new javax.swing.JButton();
         izqBoton = new javax.swing.JButton();
+        repetir = new javax.swing.JButton();
+        aleatorio = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        wallpaper = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMinimumSize(new java.awt.Dimension(1000, 600));
+        setMinimumSize(new java.awt.Dimension(900, 460));
         getContentPane().setLayout(null);
 
         jButton2.setText("Canciones");
@@ -140,11 +167,13 @@ public class Reproductor extends javax.swing.JFrame {
         getContentPane().add(jButton7);
         jButton7.setBounds(10, 280, 140, 37);
         getContentPane().add(portada);
-        portada.setBounds(270, 30, 680, 280);
+        portada.setBounds(370, 30, 580, 280);
 
-        cancionActual.setText("jLabel1");
+        cancionActual.setFont(new java.awt.Font("Baekmuk Headline", 2, 24)); // NOI18N
+        cancionActual.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cancionActual.setText("REPRODUCTOR EN PAUSA");
         getContentPane().add(cancionActual);
-        cancionActual.setBounds(270, 337, 540, 30);
+        cancionActual.setBounds(250, 310, 540, 30);
         getContentPane().add(playBoton);
         playBoton.setBounds(510, 357, 80, 70);
         getContentPane().add(derBoton);
@@ -157,6 +186,28 @@ public class Reproductor extends javax.swing.JFrame {
         });
         getContentPane().add(izqBoton);
         izqBoton.setBounds(400, 360, 80, 70);
+
+        repetir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                repetirActionPerformed(evt);
+            }
+        });
+        getContentPane().add(repetir);
+        repetir.setBounds(720, 370, 80, 50);
+        getContentPane().add(aleatorio);
+        aleatorio.setBounds(300, 370, 80, 50);
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(170, 30, 170, 280);
+        getContentPane().add(wallpaper);
+        wallpaper.setBounds(0, 0, 900, 460);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -172,6 +223,10 @@ public class Reproductor extends javax.swing.JFrame {
     private void izqBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_izqBotonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_izqBotonActionPerformed
+
+    private void repetirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repetirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_repetirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -207,6 +262,7 @@ public class Reproductor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton aleatorio;
     private javax.swing.JLabel cancionActual;
     private javax.swing.JButton derBoton;
     private javax.swing.JButton izqBoton;
@@ -217,7 +273,11 @@ public class Reproductor extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton playBoton;
     private javax.swing.JLabel portada;
+    private javax.swing.JButton repetir;
+    private javax.swing.JLabel wallpaper;
     // End of variables declaration//GEN-END:variables
 }
