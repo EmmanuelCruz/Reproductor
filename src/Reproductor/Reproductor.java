@@ -6,10 +6,15 @@
 package Reproductor;
 
 import java.awt.Image;
+import java.io.File;
 import java.util.ArrayList;
-import javafx.scene.paint.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javazoom.jlgui.basicplayer.BasicPlayer;
+import javazoom.jlgui.basicplayer.BasicPlayerException;
 
 /**
  *
@@ -23,6 +28,8 @@ public class Reproductor extends javax.swing.JFrame {
     /** Lista de PlayList*/
     public ArrayList<Playlist> playLists;
     
+    /** Player auxiliar. */
+    private BasicPlayer player;
 
     /**
      * Creates new form Reproductor
@@ -62,9 +69,7 @@ public class Reproductor extends javax.swing.JFrame {
         Icon iconoAle = new ImageIcon(botonAleatorio.getImage().getScaledInstance(aleatorio.getWidth(), aleatorio.getHeight(), Image.SCALE_DEFAULT));
         aleatorio.setIcon(iconoAle);
         
-        
-        
-        
+        player = new BasicPlayer();
     }
     
     /**
@@ -123,7 +128,7 @@ public class Reproductor extends javax.swing.JFrame {
         repetir = new javax.swing.JButton();
         aleatorio = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jList1 = new javax.swing.JList<String>();
         wallpaper = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
@@ -140,15 +145,15 @@ public class Reproductor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(10, 30, 140, 37);
+        jButton2.setBounds(10, 30, 140, 36);
 
         jButton3.setText("Playlists");
         getContentPane().add(jButton3);
-        jButton3.setBounds(10, 80, 140, 37);
+        jButton3.setBounds(10, 80, 140, 36);
 
         jButton4.setText("Elimina Canción");
         getContentPane().add(jButton4);
-        jButton4.setBounds(10, 180, 140, 37);
+        jButton4.setBounds(10, 180, 140, 36);
 
         jButton5.setText("Agrega Canción");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -157,15 +162,15 @@ public class Reproductor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton5);
-        jButton5.setBounds(10, 130, 140, 37);
+        jButton5.setBounds(10, 130, 140, 36);
 
         jButton6.setText("Agrega Playlist");
         getContentPane().add(jButton6);
-        jButton6.setBounds(10, 230, 140, 37);
+        jButton6.setBounds(10, 230, 140, 36);
 
         jButton7.setText("Busca Canción");
         getContentPane().add(jButton7);
-        jButton7.setBounds(10, 280, 140, 37);
+        jButton7.setBounds(10, 280, 140, 36);
         getContentPane().add(portada);
         portada.setBounds(370, 30, 580, 280);
 
@@ -174,6 +179,12 @@ public class Reproductor extends javax.swing.JFrame {
         cancionActual.setText("REPRODUCTOR EN PAUSA");
         getContentPane().add(cancionActual);
         cancionActual.setBounds(250, 310, 540, 30);
+
+        playBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playBotonActionPerformed(evt);
+            }
+        });
         getContentPane().add(playBoton);
         playBoton.setBounds(510, 357, 80, 70);
         getContentPane().add(derBoton);
@@ -197,10 +208,10 @@ public class Reproductor extends javax.swing.JFrame {
         getContentPane().add(aleatorio);
         aleatorio.setBounds(300, 370, 80, 50);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane1.setViewportView(jList1);
 
@@ -227,6 +238,24 @@ public class Reproductor extends javax.swing.JFrame {
     private void repetirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repetirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_repetirActionPerformed
+
+    private void playBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playBotonActionPerformed
+        JFileChooser jfc = new JFileChooser();
+        
+        int returnValue = jfc.showOpenDialog(null);
+        
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = jfc.getSelectedFile();
+            
+            try {
+                player.open(selectedFile);
+                player.play();
+            } catch (BasicPlayerException ex) {
+                Logger.getLogger(Reproductor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }//GEN-LAST:event_playBotonActionPerformed
 
     /**
      * @param args the command line arguments
