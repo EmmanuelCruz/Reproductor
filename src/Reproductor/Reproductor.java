@@ -30,6 +30,12 @@ public class Reproductor extends javax.swing.JFrame {
     
     /** Player auxiliar. */
     private BasicPlayer player;
+    
+    private Icon iconoPlay;
+    
+    private Icon iconoPause;
+    
+    private boolean reproduciendo;
 
     /**
      * Creates new form Reproductor
@@ -46,8 +52,11 @@ public class Reproductor extends javax.swing.JFrame {
         
         //Boton Play
         ImageIcon botonPlay = new ImageIcon("src/Reproductor/PLAY.png");
-        Icon iconoPlay = new ImageIcon(botonPlay.getImage().getScaledInstance(playBoton.getWidth(), playBoton.getHeight(), Image.SCALE_DEFAULT));
+        iconoPlay = new ImageIcon(botonPlay.getImage().getScaledInstance(playBoton.getWidth(), playBoton.getHeight(), Image.SCALE_DEFAULT));
         playBoton.setIcon(iconoPlay);
+        
+        ImageIcon botonPause = new ImageIcon("src/Reproductor/PAUSE.png");
+        iconoPause = new ImageIcon(botonPause.getImage().getScaledInstance(playBoton.getWidth(), playBoton.getHeight(), Image.SCALE_DEFAULT));
         
         //Boton Derecho
         ImageIcon botonDer = new ImageIcon("src/Reproductor/DER.png");
@@ -70,6 +79,8 @@ public class Reproductor extends javax.swing.JFrame {
         aleatorio.setIcon(iconoAle);
         
         player = new BasicPlayer();
+        
+        reproduciendo = false;
     }
     
     /**
@@ -240,6 +251,18 @@ public class Reproductor extends javax.swing.JFrame {
     }//GEN-LAST:event_repetirActionPerformed
 
     private void playBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playBotonActionPerformed
+        
+        if(reproduciendo){
+            try {
+                player.pause();
+                playBoton.setIcon(iconoPlay);
+            } catch (BasicPlayerException ex) {
+                Logger.getLogger(Reproductor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            reproduciendo = false;
+            return;
+        }
+        
         JFileChooser jfc = new JFileChooser();
         
         int returnValue = jfc.showOpenDialog(null);
@@ -254,7 +277,8 @@ public class Reproductor extends javax.swing.JFrame {
                 Logger.getLogger(Reproductor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+        playBoton.setIcon(iconoPause);
+        reproduciendo = true;
     }//GEN-LAST:event_playBotonActionPerformed
 
     /**
