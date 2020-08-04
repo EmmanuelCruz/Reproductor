@@ -163,11 +163,6 @@ public class Reproductor extends javax.swing.JFrame {
         jButton3.setBounds(10, 80, 140, 37);
 
         jButton4.setText("Elimina Canción");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
         getContentPane().add(jButton4);
         jButton4.setBounds(10, 180, 140, 37);
 
@@ -247,6 +242,8 @@ public class Reproductor extends javax.swing.JFrame {
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = jfc.getSelectedFile();
             
+            //jList1.addElement(selectedFile.getName());
+            
             try {
                 player.open(selectedFile);
             } catch (BasicPlayerException ex) {
@@ -285,10 +282,6 @@ public class Reproductor extends javax.swing.JFrame {
         playBoton.setIcon(iconoPause);
         reproduciendo = true;
     }//GEN-LAST:event_playBotonActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
