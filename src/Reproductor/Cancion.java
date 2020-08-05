@@ -5,6 +5,8 @@
  */
 package Reproductor;
 
+import java.io.File;
+
 /**
  *
  * @author Emmanuel Cruz
@@ -12,56 +14,23 @@ package Reproductor;
  */
 public class Cancion {
     
-    /** Artista de la cancion. */
-    public String artista;
-    
-    /** Nombre de la cancion. */
-    public String nombre;
-    
-    /** Album de la cacion. */
-    public String album;
-    
-    /** Duracion de la cancion. */
-    public String duracion;
-    
-    /** Anio de la cancion. */
-    public int anio;
+    /** Archivo que almacena la canción. */
+    private final File archivo;
     
     /**
      * Construye una nueva cancion. 
-     * @param artista el artista de la cancion.
-     * @param nombre el nombre de la cancion.
-     * @param album el album de la cancion.
-     * @param duracion la duracion de la cancion.
-     * @param anio el anio de la cancion.
+     * @param archivo el archivo que almacena la canción.
      */
-    public Cancion(String artista, String nombre, String album,
-            String duracion, int anio){
-        this.artista = artista;
-        this.nombre = nombre;
-        this.album = album;
-        this.duracion = duracion;
-        this.anio = anio;
+    public Cancion(File archivo){
+        this.archivo = archivo;
     }
     
     /**
-     * Reproduce la cancion.
+     * Regresa el archivo asociado a la canción.
+     * @return el archivo de la canción.
      */
-    public void reproduce(){
-        
+    public File getArchivo(){
+        return archivo;
     }
-    
-    /**
-     * Detiene la cancion.
-     */
-    public void detiene(){
-        
-    }
-    
-    /**
-     * Pausa la cancion.
-     */
-    public void pausa(){
-        
-    }
+
 }

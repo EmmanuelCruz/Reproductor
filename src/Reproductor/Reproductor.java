@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -36,6 +37,8 @@ public class Reproductor extends javax.swing.JFrame {
     private final Icon iconoPause;
     
     private boolean reproduciendo;
+    
+    private DefaultListModel cancionesModel;
 
     /**
      * Creates new form Reproductor
@@ -81,6 +84,10 @@ public class Reproductor extends javax.swing.JFrame {
         player = new BasicPlayer();
         
         reproduciendo = false;
+        
+        cancionesModel = new DefaultListModel();
+        jList1.setModel(cancionesModel);
+        canciones = new ArrayList<>();
     }
     
     /**
@@ -139,7 +146,7 @@ public class Reproductor extends javax.swing.JFrame {
         repetir = new javax.swing.JButton();
         aleatorio = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jList1 = new javax.swing.JList<String>();
         wallpaper = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
@@ -156,15 +163,15 @@ public class Reproductor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(10, 30, 140, 37);
+        jButton2.setBounds(10, 30, 140, 36);
 
         jButton3.setText("Playlists");
         getContentPane().add(jButton3);
-        jButton3.setBounds(10, 80, 140, 37);
+        jButton3.setBounds(10, 80, 140, 36);
 
         jButton4.setText("Elimina Canción");
         getContentPane().add(jButton4);
-        jButton4.setBounds(10, 180, 140, 37);
+        jButton4.setBounds(10, 180, 140, 36);
 
         jButton5.setText("Agrega Canción");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -173,15 +180,15 @@ public class Reproductor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton5);
-        jButton5.setBounds(10, 130, 140, 37);
+        jButton5.setBounds(10, 130, 140, 36);
 
         jButton6.setText("Agrega Playlist");
         getContentPane().add(jButton6);
-        jButton6.setBounds(10, 230, 140, 37);
+        jButton6.setBounds(10, 230, 140, 36);
 
         jButton7.setText("Busca Canción");
         getContentPane().add(jButton7);
-        jButton7.setBounds(10, 280, 140, 37);
+        jButton7.setBounds(10, 280, 140, 36);
         getContentPane().add(portada);
         portada.setBounds(370, 30, 580, 280);
 
@@ -219,10 +226,18 @@ public class Reproductor extends javax.swing.JFrame {
         getContentPane().add(aleatorio);
         aleatorio.setBounds(300, 370, 80, 50);
 
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(170, 30, 170, 280);
+
+        wallpaper.setMaximumSize(new java.awt.Dimension(900, 460));
+        wallpaper.setMinimumSize(new java.awt.Dimension(900, 460));
         getContentPane().add(wallpaper);
         wallpaper.setBounds(0, 0, 900, 460);
 
@@ -242,13 +257,11 @@ public class Reproductor extends javax.swing.JFrame {
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = jfc.getSelectedFile();
             
-            //jList1.addElement(selectedFile.getName());
+            Cancion nueva = new Cancion(selectedFile);
             
-            try {
-                player.open(selectedFile);
-            } catch (BasicPlayerException ex) {
-                Logger.getLogger(Reproductor.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            canciones.add(nueva);
+            //jList1.addElement(selectedFile.getName());
+            cancionesModel.addElement(nueva.getArchivo().getName());
         }     
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -274,7 +287,7 @@ public class Reproductor extends javax.swing.JFrame {
         }
             
             try {
-                player.play();
+                player.resume();
             } catch (BasicPlayerException ex) {
                 Logger.getLogger(Reproductor.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -282,6 +295,21 @@ public class Reproductor extends javax.swing.JFrame {
         playBoton.setIcon(iconoPause);
         reproduciendo = true;
     }//GEN-LAST:event_playBotonActionPerformed
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        int posicion = jList1.getSelectedIndex();
+        if(posicion<0)
+            return;
+        try {
+            player.open(canciones.get(posicion).getArchivo());
+            player.play();
+            reproduciendo = true;
+            playBoton.setIcon(iconoPause);
+        } catch (BasicPlayerException ex) {
+            Logger.getLogger(Reproductor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jList1MouseClicked
 
     /**
      * @param args the command line arguments
