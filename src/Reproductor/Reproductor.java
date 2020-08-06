@@ -88,6 +88,14 @@ public class Reproductor extends javax.swing.JFrame {
         cancionesModel = new DefaultListModel();
         jList1.setModel(cancionesModel);
         canciones = new ArrayList<>();
+        
+        Cancion c1 = new Cancion(new File("src/Canciones/Bull.mp3"));
+        canciones.add(c1);
+        cancionesModel.addElement(c1.getArchivo().getName());
+        
+        Cancion c2 = new Cancion(new File("src/Canciones/Cumbia.mp3"));
+        canciones.add(c2);
+        cancionesModel.addElement(c2.getArchivo().getName());
     }
     
     /**
@@ -196,7 +204,7 @@ public class Reproductor extends javax.swing.JFrame {
         cancionActual.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cancionActual.setText("REPRODUCTOR EN PAUSA");
         getContentPane().add(cancionActual);
-        cancionActual.setBounds(250, 310, 540, 30);
+        cancionActual.setBounds(170, 310, 690, 30);
 
         playBoton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -279,13 +287,17 @@ public class Reproductor extends javax.swing.JFrame {
             try {
                 player.pause();
                 playBoton.setIcon(iconoPlay);
+                cancionActual.setText("REPRODUCTOR EN PAUSA");
             } catch (BasicPlayerException ex) {
                 Logger.getLogger(Reproductor.class.getName()).log(Level.SEVERE, null, ex);
             }
             reproduciendo = false;
             return;
         }
+            int pos = jList1.getSelectedIndex();
             
+            cancionActual.setText(canciones.get(pos).getArchivo().getName().toUpperCase().replaceAll(".MP3", ""));
+        
             try {
                 player.resume();
             } catch (BasicPlayerException ex) {
@@ -305,6 +317,7 @@ public class Reproductor extends javax.swing.JFrame {
             player.play();
             reproduciendo = true;
             playBoton.setIcon(iconoPause);
+            cancionActual.setText(canciones.get(posicion).getArchivo().getName().toUpperCase().replaceAll(".MP3", ""));
         } catch (BasicPlayerException ex) {
             Logger.getLogger(Reproductor.class.getName()).log(Level.SEVERE, null, ex);
         }
