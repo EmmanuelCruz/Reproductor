@@ -38,6 +38,8 @@ public class Reproductor extends javax.swing.JFrame {
     
     private boolean reproduciendo;
     
+    private int indiceActual;
+    
     private DefaultListModel cancionesModel;
 
     /**
@@ -154,7 +156,7 @@ public class Reproductor extends javax.swing.JFrame {
         repetir = new javax.swing.JButton();
         aleatorio = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<String>();
+        jList1 = new javax.swing.JList<>();
         wallpaper = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
@@ -171,15 +173,20 @@ public class Reproductor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(10, 30, 140, 36);
+        jButton2.setBounds(10, 30, 140, 37);
 
         jButton3.setText("Playlists");
         getContentPane().add(jButton3);
-        jButton3.setBounds(10, 80, 140, 36);
+        jButton3.setBounds(10, 80, 140, 37);
 
         jButton4.setText("Elimina Canción");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton4);
-        jButton4.setBounds(10, 180, 140, 36);
+        jButton4.setBounds(10, 180, 140, 37);
 
         jButton5.setText("Agrega Canción");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -188,15 +195,15 @@ public class Reproductor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton5);
-        jButton5.setBounds(10, 130, 140, 36);
+        jButton5.setBounds(10, 130, 140, 37);
 
         jButton6.setText("Agrega Playlist");
         getContentPane().add(jButton6);
-        jButton6.setBounds(10, 230, 140, 36);
+        jButton6.setBounds(10, 230, 140, 37);
 
         jButton7.setText("Busca Canción");
         getContentPane().add(jButton7);
-        jButton7.setBounds(10, 280, 140, 36);
+        jButton7.setBounds(10, 280, 140, 37);
         getContentPane().add(portada);
         portada.setBounds(370, 30, 580, 280);
 
@@ -213,6 +220,12 @@ public class Reproductor extends javax.swing.JFrame {
         });
         getContentPane().add(playBoton);
         playBoton.setBounds(510, 357, 80, 70);
+
+        derBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                derBotonActionPerformed(evt);
+            }
+        });
         getContentPane().add(derBoton);
         derBoton.setBounds(620, 357, 80, 70);
 
@@ -273,12 +286,35 @@ public class Reproductor extends javax.swing.JFrame {
         }     
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    //boton para cambiar musica (anterior)
     private void izqBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_izqBotonActionPerformed
-        // TODO add your handling code here:
+        int posicion = jList1.getSelectedIndex();
+        posicion--;
+        if(posicion<0){
+            try {
+                player.open(canciones.get(canciones.size()-1).getArchivo());
+                player.play();
+                cancionActual.setText(canciones.get(canciones.size()-1).getArchivo().getName().toUpperCase().replaceAll(".MP3", ""));
+        } catch (BasicPlayerException ex) {
+            Logger.getLogger(Reproductor.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+            
+            return;
+        }
+        try {
+            player.open(canciones.get(posicion).getArchivo());
+            player.play();
+            cancionActual.setText(canciones.get(posicion).getArchivo().getName().toUpperCase().replaceAll(".MP3", ""));
+        } catch (BasicPlayerException ex) {
+            Logger.getLogger(Reproductor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
     }//GEN-LAST:event_izqBotonActionPerformed
 
     private void repetirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repetirActionPerformed
-        // TODO add your handling code here:
+        
+        
+        
     }//GEN-LAST:event_repetirActionPerformed
 
     private void playBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playBotonActionPerformed
@@ -323,6 +359,31 @@ public class Reproductor extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jList1MouseClicked
+
+    //boton que elimina canciones
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+                                        
+        int posicion = jList1.getSelectedIndex();
+        if(posicion<0)
+            return;
+        
+        canciones.remove(posicion);        
+        cancionesModel.remove(posicion);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    //boton que cambia a la siguiente cancion 
+    private void derBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_derBotonActionPerformed
+         int posicion = jList1.getSelectedIndex();
+        posicion++;
+        
+        try {
+            player.open(canciones.get(posicion%canciones.size()).getArchivo());
+            player.play();
+            cancionActual.setText(canciones.get(posicion%canciones.size()).getArchivo().getName().toUpperCase().replaceAll(".MP3", ""));
+        } catch (BasicPlayerException ex) {
+            Logger.getLogger(Reproductor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_derBotonActionPerformed
 
     /**
      * @param args the command line arguments
