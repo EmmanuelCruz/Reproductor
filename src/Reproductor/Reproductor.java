@@ -294,6 +294,7 @@ public class Reproductor extends javax.swing.JFrame {
             try {
                 player.open(canciones.get(canciones.size()-1).getArchivo());
                 player.play();
+                playBoton.setIcon(iconoPause);
                 cancionActual.setText(canciones.get(canciones.size()-1).getArchivo().getName().toUpperCase().replaceAll(".MP3", ""));
                 indiceActual = canciones.size()-1;
         } catch (BasicPlayerException ex) {
@@ -305,6 +306,7 @@ public class Reproductor extends javax.swing.JFrame {
         try {
             player.open(canciones.get(posicion).getArchivo());
             player.play();
+            playBoton.setIcon(iconoPause);
             cancionActual.setText(canciones.get(posicion).getArchivo().getName().toUpperCase().replaceAll(".MP3", ""));
             indiceActual = posicion;
         } catch (BasicPlayerException ex) {
@@ -332,7 +334,7 @@ public class Reproductor extends javax.swing.JFrame {
             reproduciendo = false;
             return;
         }
-            int pos = jList1.getSelectedIndex();
+            int pos = indiceActual;
             
             cancionActual.setText(canciones.get(pos).getArchivo().getName().toUpperCase().replaceAll(".MP3", ""));
         
@@ -382,6 +384,7 @@ public class Reproductor extends javax.swing.JFrame {
         try {
             player.open(canciones.get(posicion%canciones.size()).getArchivo());
             player.play();
+            playBoton.setIcon(iconoPause);
             cancionActual.setText(canciones.get(posicion%canciones.size()).getArchivo().getName().toUpperCase().replaceAll(".MP3", ""));
             indiceActual = posicion%canciones.size();
         } catch (BasicPlayerException ex) {
