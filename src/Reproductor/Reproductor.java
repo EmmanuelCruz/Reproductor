@@ -288,13 +288,14 @@ public class Reproductor extends javax.swing.JFrame {
 
     //boton para cambiar musica (anterior)
     private void izqBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_izqBotonActionPerformed
-        int posicion = jList1.getSelectedIndex();
+        int posicion = indiceActual;
         posicion--;
         if(posicion<0){
             try {
                 player.open(canciones.get(canciones.size()-1).getArchivo());
                 player.play();
                 cancionActual.setText(canciones.get(canciones.size()-1).getArchivo().getName().toUpperCase().replaceAll(".MP3", ""));
+                indiceActual = canciones.size()-1;
         } catch (BasicPlayerException ex) {
             Logger.getLogger(Reproductor.class.getName()).log(Level.SEVERE, null, ex);
         } 
@@ -305,6 +306,7 @@ public class Reproductor extends javax.swing.JFrame {
             player.open(canciones.get(posicion).getArchivo());
             player.play();
             cancionActual.setText(canciones.get(posicion).getArchivo().getName().toUpperCase().replaceAll(".MP3", ""));
+            indiceActual = posicion;
         } catch (BasicPlayerException ex) {
             Logger.getLogger(Reproductor.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -354,6 +356,7 @@ public class Reproductor extends javax.swing.JFrame {
             reproduciendo = true;
             playBoton.setIcon(iconoPause);
             cancionActual.setText(canciones.get(posicion).getArchivo().getName().toUpperCase().replaceAll(".MP3", ""));
+            indiceActual = posicion;
         } catch (BasicPlayerException ex) {
             Logger.getLogger(Reproductor.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -373,13 +376,14 @@ public class Reproductor extends javax.swing.JFrame {
 
     //boton que cambia a la siguiente cancion 
     private void derBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_derBotonActionPerformed
-         int posicion = jList1.getSelectedIndex();
+         int posicion = indiceActual;
         posicion++;
         
         try {
             player.open(canciones.get(posicion%canciones.size()).getArchivo());
             player.play();
             cancionActual.setText(canciones.get(posicion%canciones.size()).getArchivo().getName().toUpperCase().replaceAll(".MP3", ""));
+            indiceActual = posicion%canciones.size();
         } catch (BasicPlayerException ex) {
             Logger.getLogger(Reproductor.class.getName()).log(Level.SEVERE, null, ex);
         }
