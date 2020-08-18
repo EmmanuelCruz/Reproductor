@@ -41,6 +41,8 @@ public class Reproductor extends javax.swing.JFrame {
     private int indiceActual;
     
     private DefaultListModel cancionesModel;
+    
+    public DefaultListModel playListModel;
 
     /**
      * Creates new form Reproductor
@@ -90,6 +92,10 @@ public class Reproductor extends javax.swing.JFrame {
         cancionesModel = new DefaultListModel();
         jList1.setModel(cancionesModel);
         canciones = new ArrayList<>();
+        
+        playListModel = new DefaultListModel();
+        jList2.setModel(playListModel);
+        playLists = new ArrayList<>();
         
         Cancion c1 = new Cancion(new File("src/Canciones/Bull.mp3"));
         canciones.add(c1);
@@ -147,8 +153,6 @@ public class Reproductor extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        portada = new javax.swing.JLabel();
         cancionActual = new javax.swing.JLabel();
         playBoton = new javax.swing.JButton();
         derBoton = new javax.swing.JButton();
@@ -156,7 +160,9 @@ public class Reproductor extends javax.swing.JFrame {
         repetir = new javax.swing.JButton();
         aleatorio = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jList1 = new javax.swing.JList<String>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList();
         wallpaper = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
@@ -173,11 +179,16 @@ public class Reproductor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(10, 30, 140, 37);
+        jButton2.setBounds(10, 30, 140, 36);
 
         jButton3.setText("Playlists");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton3);
-        jButton3.setBounds(10, 80, 140, 37);
+        jButton3.setBounds(10, 80, 140, 36);
 
         jButton4.setText("Elimina Canción");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -186,7 +197,7 @@ public class Reproductor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton4);
-        jButton4.setBounds(10, 180, 140, 37);
+        jButton4.setBounds(10, 180, 140, 36);
 
         jButton5.setText("Agrega Canción");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -195,17 +206,16 @@ public class Reproductor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton5);
-        jButton5.setBounds(10, 130, 140, 37);
+        jButton5.setBounds(10, 130, 140, 36);
 
         jButton6.setText("Agrega Playlist");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton6);
-        jButton6.setBounds(10, 230, 140, 37);
-
-        jButton7.setText("Busca Canción");
-        getContentPane().add(jButton7);
-        jButton7.setBounds(10, 280, 140, 37);
-        getContentPane().add(portada);
-        portada.setBounds(370, 30, 580, 280);
+        jButton6.setBounds(10, 230, 140, 36);
 
         cancionActual.setFont(new java.awt.Font("Baekmuk Headline", 2, 24)); // NOI18N
         cancionActual.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -255,7 +265,12 @@ public class Reproductor extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jList1);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(170, 30, 170, 280);
+        jScrollPane1.setBounds(180, 20, 170, 280);
+
+        jScrollPane2.setViewportView(jList2);
+
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(20, 280, 130, 140);
 
         wallpaper.setMaximumSize(new java.awt.Dimension(900, 460));
         wallpaper.setMinimumSize(new java.awt.Dimension(900, 460));
@@ -266,7 +281,8 @@ public class Reproductor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        jList1.setVisible(true);
+        jList2.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // BOTÓN AGREGA CANCIÓN
@@ -391,6 +407,19 @@ public class Reproductor extends javax.swing.JFrame {
             Logger.getLogger(Reproductor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_derBotonActionPerformed
+    
+    // AGREGA PLAYLIST
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        PlaylistCreator ventana = new PlaylistCreator(this);
+        ventana.setVisible(true);
+        jList1.setVisible(false);
+        jList2.setVisible(true);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        jList2.setVisible(true);
+        jList1.setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -436,11 +465,11 @@ public class Reproductor extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JList<String> jList1;
+    private javax.swing.JList jList2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton playBoton;
-    private javax.swing.JLabel portada;
     private javax.swing.JButton repetir;
     private javax.swing.JLabel wallpaper;
     // End of variables declaration//GEN-END:variables
